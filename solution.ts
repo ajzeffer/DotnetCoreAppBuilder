@@ -9,6 +9,7 @@ interface IProject{
 export default class DotnetSolution{
     private projects: IProject[] = [];
     private appNamespace : string = 'Awesomeness.Domain';
+    private outDir : string = 'out'
     constructor(appName: string){
         this.appNamespace = appName;
         let projApi :IProject =  {
@@ -35,23 +36,24 @@ export default class DotnetSolution{
     }
 
     create = () => {
+
         // Create 
         console.log('starting creation .. ')
-        child.execSync(`dotnet new sln --name ${this.appNamespace}`);
+        child.execSync(`dotnet new sln --name ${this.appNamespace} -o ${this.outDir}`);
         this.projects.forEach(proj => {
-            child.execSync(`dotnet new ${proj.projType} --name ${this.appNamespace}.${proj.projName}`);
-        })
+            child.execSync(`dotnet new ${proj.projType} --name ${this.appNamespace}.${proj.projName} -o ${this.outDir}/${this.appNamespace}.${proj.projName}`);
+        });
         // add to sln 
         console.log('adding projs to sln ... ');
         this.projects.forEach(proj => {
-        child.execSync(`dotnet sln ${this.appNamespace}.sln add ${this.appNamespace}.${proj.projName}/${this.appNamespace}.${proj.projName}.csproj`);
+        child.execSync(`dotnet sln ${this.outDir}/${this.appNamespace}.sln add ${this.outDir}/${this.appNamespace}.${proj.projName}/${this.appNamespace}.${proj.projName}.csproj`);
         });
 
         // referrences 
         console.log('creating references...');
         this.projects.forEach(proj => {
             proj.dependencies.forEach(dep => {
-                child.execSync(`dotnet add ${this.appNamespace}.${proj.projName}/${this.appNamespace}.${proj.projName}.csproj reference ${this.appNamespace}.${dep}/${this.appNamespace}.${dep}.csproj`);
+                child.execSync(`dotnet add ${this.outDir}/${this.appNamespace}.${proj.projName}/${this.appNamespace}.${proj.projName}.csproj reference ${this.outDir}/${this.appNamespace}.${dep}/${this.appNamespace}.${dep}.csproj`);
             })
         });
         console.log('All Done ...isn\'t it pretty :-\)');
