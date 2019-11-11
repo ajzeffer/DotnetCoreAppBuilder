@@ -2,3 +2,5 @@ node_modules
 Awesomeness*
 .DS_Store
 .idea/
+.vscode/
+out
