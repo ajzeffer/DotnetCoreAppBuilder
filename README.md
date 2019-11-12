@@ -16,7 +16,7 @@ __________
 
 ## Building The Solution 
 ```
-npx ts-node index.ts --name {Your Desired Namespace}
+npx ts-node index.ts --name {Your Desired Namespace} --repo {githubRepo}
 ```
 _______
 
@@ -27,15 +27,20 @@ should look like this
 | out
 |--> App.sln
 |-----> App.Core
+|-----> App.Core.Tests
 |-----> App.Infrastructure
 |-----> App.Api
+|-----> .dockerignore
+|-----> App.Api.dockerfile
+|-----> .gitignore
+
 
 
 ```
 _______
 
 ## To Do: 
-- add docker support 
-- add helm file support for k8's 
+- add docker support :checkmark:
+- add helm file support for k8's :wip:
 - create github repo and push first commit 
 - create azure devops pipeline 
