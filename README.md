@@ -1,20 +1,33 @@
 # Dotnet Core App Scripting 
 
-This node app builds a dotnet core app with the [Clean Architecture](https://github.com/ardalis/CleanArchitecture/tree/master/src)  project pattern
+## Description
+This node app builds a dotnet core app with the [Clean Architecture](https://github.com/ardalis/CleanArchitecture/tree/master/src)  project pattern, and alot more.... 
 
-Top Level 
+## Features: 
+- Creates projects, referrences, and adds to solution
+- Installs a default set of packages (eg: swagger, moq, etc)
+- Creates an organized folder structure
+- Creates Dockerfiles for projects marked as `dockerize` (wip)
+- Pushes the solution to a github repo when passed the `--repo` flag
+
+___
+
+## Solution Strucutre 
 
 `App.sln`
 
 `App.Api`
+
 `App.Core` > Business logic and Interfaces
+
+`App.Core.Tests` > Tests for business logic
 
 `App.Infrastrucutre` > Interface Implementations that are technology specific 
 
 
 __________
 
-## Building The Solution 
+## Generating The Solution 
 ```
 npx ts-node index.ts --name {Your Desired Namespace} --repo {githubRepo}
 ```
@@ -39,8 +52,7 @@ should look like this
 ```
 _______
 
-## To Do: 
-- add docker support :checkmark:
-- add helm file support for k8's :wip:
-- create github repo and push first commit 
+## WIP: 
+- dockerfile project mapping 
+- add helm file support for k8's
 - create azure devops pipeline 
